@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" TaskName="TransformXml" />
+
+  <PropertyGroup>
+    <SolutionFile>$(MSBuildProjectDirectory)\SitecoreAdaptors.sln</SolutionFile>
+    <ReleaseFolder>$(MSBuildProjectDirectory)\_Release</ReleaseFolder>
+  </PropertyGroup>
+
+  <Target Name="Build">
+    <RemoveDir Directories="$(ReleaseFolder)" />
+
+    <MSBuild Projects="$(SolutionFile)" Targets="Clean;Build" StopOnFirstFailure="true" Properties="
+             Configuration=Release;
+             OutDir=$(ReleaseFolder)\bin\;
+             WebProjectOutputDir=$(ReleaseFolder);
+             SkipDeployment=True" />
+        
+    <ItemGroup>
+      <CleanupFiles Include="$(ReleaseFolder)\App_Config\ConnectionStrings.config" />
+      <CleanupFiles Include="$(ReleaseFolder)\bin\Sitecore.*" />
+      <CleanupFiles Include="$(ReleaseFolder)\bin\Telerik.*" />
+      <CleanupFiles Include="$(ReleaseFolder)\bin\Stimulsoft.*" />
+      <CleanupFiles Include="$(ReleaseFolder)\bin\ComponentArt.*" />
+      <CleanupFiles Include="$(ReleaseFolder)\bin\RadEditor.*" />
+      <CleanupFiles Include="$(ReleaseFolder)\bin\Mvp.Xml.*" />
+      <CleanupFiles Include="$(ReleaseFolder)\bin\Newtonsoft.Json.*" />
+      <CleanupFiles Include="$(ReleaseFolder)\bin\Lucene.Net.*" />
+      <CleanupFiles Include="$(ReleaseFolder)\bin\ITHit.WebDAV.Server.*" />
+      <CleanupFiles Include="$(ReleaseFolder)\bin\HtmlAgilityPack.*" />
+    </ItemGroup>
+
+    <Delete Files="@(CleanupFiles)" />
+  </Target>
+</Project>
