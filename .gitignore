@@ -33,7 +33,7 @@
 .builds
 **/*.dotCover
 *.dotCover
-*.ncrunchproject
+*.ncrunch*
 
 # Sitecore
 lib/Sitecore/*.*
